@@ -11,20 +11,22 @@
 
     <div class="Title"> Weather Map </div>
     
-    <div class="Menu Déroulant"> 
+    <div class="menu-deroulant">
 
-        <select class="ville">
 
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
+        <div class="recherche">
 
-        </select>
+            <input type="text" id="ville" placeholder="Entrez une ville" oninput="afficherSuggestions()">
+            <div id="suggestions"></div>
+            
 
-        <button onclick=""> Obtenir la météo </button>
+        </div>
+        
+        <button onclick=obtenirMeteo()> Obtenir la météo </button>
+        <div id="resultat"></div>
 
     </div>
+
 
     <div class="Output">
 

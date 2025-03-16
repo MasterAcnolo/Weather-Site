@@ -30,3 +30,22 @@ html {
 
    
 }
+
+#suggestions {
+    background: white;
+    border: 1px solid #ccc;
+    max-width: 300px;
+    position: absolute;
+    z-index: 1000;
+}
+
+#suggestions p {
+    margin: 0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#suggestions p:hover {
+    background: #f0f0f0;
+}
+
