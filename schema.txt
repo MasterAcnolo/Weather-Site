@@ -6,6 +6,8 @@ On les mets en paramètres de l'API et puis on fait la requete
 
 L'API renvoie les infos que l'on veut
 
--------------------------------------------
+----------------API------------------------
 
 api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+
+-------------------------------------------

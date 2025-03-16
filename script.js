@@ -39,7 +39,7 @@ async function obtenirMeteo() {
         <p>⚡ Pression : ${meteoData.main.pressure} hPa</p>
         <p>👀 Visibilité : ${(meteoData.visibility / 1000).toFixed(1)} km</p>
         <p>🌅 Lever du soleil : ${new Date(meteoData.sys.sunrise * 1000).toLocaleTimeString("fr-FR")}</p>
-        <p>🌇 Coucher du soleil : ${new Date(meteoData.sys.sunset * 1000).toLocaleTimeString("fr-FR")}</p>
+        <p>🌇 Coucher du soleil :${new Date(meteoData.sys.sunset * 1000).toLocaleTimeString("fr-FR")}</p>
             `;
 
     } catch (error) {
@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", chargerVilles);
 function afficherSuggestions() {
     const input = document.getElementById("ville").value.toLowerCase();
     const suggestionsDiv = document.getElementById("suggestions");
+    suggestions.style.display = "block"; // Afficher les suggestions
 
     if (input.length < 2) {
         suggestionsDiv.innerHTML = "";
@@ -75,4 +76,4 @@ function afficherSuggestions() {
 function selectionnerVille(nom) {
     document.getElementById("ville").value = nom;
     document.getElementById("suggestions").innerHTML = "";
-}
+} 
