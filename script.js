@@ -1,13 +1,12 @@
 const API_KEY = "8092011a413fdf96273cd8b560732f20";
 
 async function obtenirMeteo() {
-    const ville = document.getElementById("ville").value;
+    const ville = document.getElementById("ville").value.trim();
     if (ville === "") {
         alert("Veuillez entrer une ville !");
         return;
     }
 
-    // Utiliser l'API Geocoding pour obtenir latitude et longitude
     const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${ville}&limit=1&appid=${API_KEY}`;
     
     try {
@@ -25,10 +24,6 @@ async function obtenirMeteo() {
         const meteoResponse = await fetch(meteoUrl);
         const meteoData = await meteoResponse.json();
 
-        //document.getElementById("icone-meteo").src = `https://openweathermap.org/img/wn/${meteoData.weather[0].icon}@2x.png`;
-
-
-
         document.getElementById("resultat").innerHTML = `
         <h2>${name}, ${country}</h2>
         <img src="https://openweathermap.org/img/wn/${meteoData.weather[0].icon}@2x.png" alt="Météo">
@@ -39,9 +34,7 @@ async function obtenirMeteo() {
         <p>⚡ Pression : ${meteoData.main.pressure} hPa</p>
         <p>👀 Visibilité : ${(meteoData.visibility / 1000).toFixed(1)} km</p>
         <p>🌅 Lever du soleil : ${new Date(meteoData.sys.sunrise * 1000).toLocaleTimeString("fr-FR")}</p>
-        <p>🌇 Coucher du soleil :${new Date(meteoData.sys.sunset * 1000).toLocaleTimeString("fr-FR")}</p>
-            `;
-
+        <p>🌇 Coucher du soleil : ${new Date(meteoData.sys.sunset * 1000).toLocaleTimeString("fr-FR")}</p>`;
     } catch (error) {
         console.error("Erreur :", error);
     }
@@ -50,8 +43,13 @@ async function obtenirMeteo() {
 let villes = [];
 
 async function chargerVilles() {
-    const response = await fetch('src/cities-minified.json'); // Charge la liste des villes
-    villes = await response.json();
+    try {
+        const response = await fetch('src/cities-minified.json');
+        villes = await response.json();
+        console.log("Villes chargées :", villes.length);
+    } catch (error) {
+        console.error("Erreur lors du chargement des villes :", error);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", chargerVilles);
@@ -59,21 +57,32 @@ document.addEventListener("DOMContentLoaded", chargerVilles);
 function afficherSuggestions() {
     const input = document.getElementById("ville").value.toLowerCase();
     const suggestionsDiv = document.getElementById("suggestions");
-    suggestions.style.display = "block"; // Afficher les suggestions
+    suggestionsDiv.style.display = "block"; // ✅ Correction
 
     if (input.length < 2) {
         suggestionsDiv.innerHTML = "";
+        suggestionsDiv.style.display = "none"; // ✅ Masquer si input trop court
         return;
     }
 
     const suggestions = villes
         .filter(v => v.name.toLowerCase().startsWith(input))
-        .slice(0, 5); // Limite à 5 suggestions
+        .slice(0, 5);
 
-    suggestionsDiv.innerHTML = suggestions.map(v => `<p onclick="selectionnerVille('${v.name}')">${v.name}, ${v.country}</p>`).join("");
+    if (suggestions.length === 0) {
+        suggestionsDiv.innerHTML = "";
+        suggestionsDiv.style.display = "none"; // ✅ Masquer si aucune suggestion
+        return;
+    }
+
+    suggestionsDiv.innerHTML = suggestions.map(v => 
+        `<p onclick="selectionnerVille('${v.name}')">${v.name}, ${v.country}</p>`
+    ).join("");
 }
 
 function selectionnerVille(nom) {
     document.getElementById("ville").value = nom;
-    document.getElementById("suggestions").innerHTML = "";
-} 
+    const suggestionsDiv = document.getElementById("suggestions");
+    suggestionsDiv.innerHTML = "";
+    suggestionsDiv.style.display = "none"; // ✅ Masquer après sélection
+}
