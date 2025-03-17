@@ -144,3 +144,13 @@ button:hover {
     }
    }
 
+.output::before{
+
+   display: none;
+}
+
+.output::after{
+
+    display: block;
+    background-color: #ccc;
+}
