@@ -24,7 +24,9 @@ async function obtenirMeteo() {
         const meteoResponse = await fetch(meteoUrl);
         const meteoData = await meteoResponse.json();
 
-        document.getElementById("resultat").innerHTML = `
+        console.log("MétéoData :", meteoData);
+        
+        document.querySelector(".Output").innerHTML = `
         <h2>${name}, ${country}</h2>
         <img src="https://openweathermap.org/img/wn/${meteoData.weather[0].icon}@2x.png" alt="Météo">
         <p>🌡 Température : ${meteoData.main.temp}°C</p>
@@ -35,6 +37,9 @@ async function obtenirMeteo() {
         <p>👀 Visibilité : ${(meteoData.visibility / 1000).toFixed(1)} km</p>
         <p>🌅 Lever du soleil : ${new Date(meteoData.sys.sunrise * 1000).toLocaleTimeString("fr-FR")}</p>
         <p>🌇 Coucher du soleil : ${new Date(meteoData.sys.sunset * 1000).toLocaleTimeString("fr-FR")}</p>`;
+    
+        // Activer l'effet d'apparition
+        document.querySelector(".Output").classList.add("active");
     } catch (error) {
         console.error("Erreur :", error);
     }

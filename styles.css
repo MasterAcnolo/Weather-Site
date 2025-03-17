@@ -32,7 +32,7 @@ html {
     margin-top: 5%;
     font-size: 900%;
 
-    background-image: url('ressources/ciel-bleu.jpg');
+    background-image: url('ressources/ciel2.avif');
     background-clip: text;
     -webkit-background-clip: text;
 
@@ -130,7 +130,7 @@ button:hover {
     animation: pulse512 1.5s infinite;
    }
    
-   @keyframes pulse512 {
+@keyframes pulse512 {
     0% {
      box-shadow: 0 0 0 0 #05bada66;
     }
@@ -144,13 +144,66 @@ button:hover {
     }
    }
 
-.output::before{
+.Output {
+    /*width: 90%; */
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    /*background-color: #6FBEF6; */
+    /*background: linear-gradient(to bottom, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background-image: linear-gradient( 135deg, #ABDCFF 10%, #0396FF 100%);
+    text-align: center;
+    color: black;
+    opacity: 0;
 
-   display: none;
+
+    /* La position en absolute c'est génial parfois */
+    position: absolute;
+    right: 10%;
+    top: 30%;
+    width: 400px;
+    
 }
 
-.output::after{
+.Output.active {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-    display: block;
-    background-color: #ccc;
+/* Animation d'apparition */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mise en page du contenu météo */
+#resultat {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+#resultat h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+#resultat img {
+    width: 80px;
+    height: 80px;
+}
+
+#resultat p {
+    margin: 5px 0;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .Output {
+        width: 95%;
+    }
 }
