@@ -64,6 +64,7 @@ function afficherSuggestions() {
     const suggestionsDiv = document.getElementById("suggestions");
     suggestionsDiv.style.display = "block"; // ✅ Correction
 
+    
     if (input.length < 2) {
         suggestionsDiv.innerHTML = "";
         suggestionsDiv.style.display = "none"; // ✅ Masquer si input trop court
